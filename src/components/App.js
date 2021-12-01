@@ -1,7 +1,20 @@
+import { useState } from "react";
 import video from "../data/video.js";
+import Buttons from "./Buttons.js";
+import Comments from "./Comments.js";
 
 function App() {
-  console.log("Here's your data:", video);
+
+  const [upVotes, setUpVotes] = useState(video.upvotes);
+  const [downVotes, setDownVotes] = useState(video.downvotes);
+  
+  function handleUpVotes() {
+    setUpVotes(upVotes + 1)
+  }
+
+  function handleDownVotes() {
+    setDownVotes(downVotes - 1)
+  }
 
   return (
     <div className="App">
@@ -13,6 +26,20 @@ function App() {
         allowFullScreen
         title="Thinking in React"
       />
+      <h1>{video.title}</h1>
+      <p>Views: {video.views} | Uploaded {video.createdAt}</p>
+      <Buttons 
+        video={video} 
+        handleUpVotes={handleUpVotes} 
+        handleDownVotes={handleDownVotes} 
+        upVotes={upVotes} 
+        downVotes={downVotes} 
+      />
+      <hr />
+      <Comments video={video} />
+      <br />
+      <br />
+      <br />
     </div>
   );
 }
